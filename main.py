@@ -5,6 +5,9 @@ Created : 07/20/2017
 Modified: 10/15/2018
 """
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+
 import datetime
 import tensorflow as tf
 import sys
@@ -126,7 +129,7 @@ def main(_):
     run_config = tf.ConfigProto()
     run_config.gpu_options.allow_growth = True
 
-    print("Chekcpoint : " + FLAGS.checkpoint_dir)
+    print("Checkpoint : " + FLAGS.checkpoint_dir)
 
     with tf.Session(config=run_config) as sess:
         tablegan = TableGan(

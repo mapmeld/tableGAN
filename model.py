@@ -60,7 +60,7 @@ class TableGan(object):
         self.feature_size = 0
         self.attrib_num = 1
 
-        self.y_dim = y_dim
+        self.y_dim = None #y_dim
         self.z_dim = z_dim
 
         self.gf_dim = gf_dim
@@ -274,7 +274,7 @@ class TableGan(object):
 
         self.saver = tf.train.Saver()
 
-    def train(self, config, experiment):
+    def train(self, config):
         print("Start Training...\n")
 
         d_optim = tf.train.AdamOptimizer(config.learning_rate, beta1=config.beta1) \
@@ -514,10 +514,10 @@ class TableGan(object):
                     })
 
                 counter += 1
-                experiment.log_metric("d_loss", errD_fake + errD_real, step=idx)
-                experiment.log_metric("g_loss", errG, step=idx)
+                #experiment.log_metric("d_loss", errD_fake + errD_real, step=idx)
+                #experiment.log_metric("g_loss", errG, step=idx)
                 if self.y_dim:
-                    experiment.log_metric("c_loss", errC, step=idx)
+                    #experiment.log_metric("c_loss", errC, step=idx)
                     print("Dataset: [%s] -> [%s] -> Epoch: [%2d] [%4d/%4d] time: %4.4f, d_loss: %.8f, g_loss: %.8f, "
                           "c_loss: %.8f" % (config.dataset, config.test_id, epoch, idx, batch_idxs,
                                             time.time() - start_time, errD_fake + errD_real, errG, errC))
@@ -602,7 +602,7 @@ class TableGan(object):
 
                 h1 = concat([h1, y], 1)
 
-                # print( "D Shape h1: " + str(h1.get_shape())) 
+                # print( "D Shape h1: " + str(h1.get_shape()))
 
                 # h2 = lrelu(self.d_bn2(linear(h1, self.dfc_dim, 'd_h2_lin'))) #new D remove
 
@@ -816,7 +816,7 @@ class TableGan(object):
 
         if os.path.exists(self.train_data_path + ".csv"):
 
-            X = pd.read_csv(self.train_data_path + ".csv", sep=';')
+            X = pd.read_csv(self.train_data_path + ".csv", sep=',')
             print("Loading CSV input file : %s" % (self.train_data_path + ".csv"))
 
             self.attrib_num = X.shape[1]

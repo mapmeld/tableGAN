@@ -40,7 +40,7 @@ def padding_duplicating(data, row_size):
     # PAdding with zero
     arr_data = np.pad(arr_data, pad_width=npad, mode='constant', constant_values=0.)
 
-    # Duplicating Values 
+    # Duplicating Values
     for i in range(1, arr_data.shape[1] // col_num):
         arr_data[:, col_num * i: col_num * (i + 1)] = arr_data[:, 0: col_num]
 
@@ -179,8 +179,8 @@ def to_json(output_path, *layers):
 
                 lines += """
           var layer_%s = {
-            "layer_type": "fc", 
-            "sy": 1, "sx": 1, 
+            "layer_type": "fc",
+            "sy": 1, "sx": 1,
             "out_sx": 1, "out_sy": 1,
             "stride": 1, "pad": 0,
             "out_depth": %s, "in_depth": %s,
@@ -197,7 +197,7 @@ def to_json(output_path, *layers):
 
                 lines += """
           var layer_%s = {
-            "layer_type": "deconv", 
+            "layer_type": "deconv",
             "sy": 5, "sx": 5,
             "out_sx": %s, "out_sy": %s,
             "stride": 2, "pad": 1,
@@ -402,7 +402,7 @@ def generate_data(sess, model, config, option):
         origin_data_path = model.train_data_path  # './data/'+ config.dataset+ '/train_'+ config.dataset + '_cleaned'
 
         if os.path.exists(origin_data_path + ".csv"):
-            origin_data = pd.read_csv(origin_data_path + ".csv", sep=';')
+            origin_data = pd.read_csv(origin_data_path + ".csv", sep=',')
 
         elif os.path.exists(origin_data_path + ".pickle"):
             with open(origin_data_path + '.pickle', 'rb') as handle:
