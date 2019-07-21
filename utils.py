@@ -353,7 +353,7 @@ def generate_data(sess, model, config, option):
             print(" [*] %d" % idx)
             z_sample = np.random.uniform(-1, 1, size=(config.batch_size, model.z_dim))
 
-            zero_labeles = model.zero_one_ratio
+            zero_labeles = 0.5 # model.zero_one_ratio
 
             # if config.dataset == "LACity":
             #   zero_labeles= 0.48       # Based the ratio of labels in initial dataset
@@ -377,7 +377,7 @@ def generate_data(sess, model, config, option):
             print("y shape " + str(y.shape))
             y = y.astype('int16')
 
-            y_one_hot = np.zeros((config.batch_size, model.y_dim))
+            y_one_hot = np.zeros((config.batch_size, 2))
 
             # y indicates the index of ones in y_one_hot : in this case y_dim =2 so indexe are 0 or 1
             y_one_hot[np.arange(config.batch_size), y] = 1
@@ -429,7 +429,7 @@ def generate_data(sess, model, config, option):
 
         rsf_out = pd.DataFrame(round_scaled_fake)
 
-        rsf_out.to_csv(f'{save_dir}/{config.dataset}_{config.test_id}_fake.csv' , index=False, sep=';')
+        rsf_out.to_csv(f'{save_dir}/{config.dataset}_{config.test_id}_fake.csv' , index=False, sep=',')
 
         print("Generated Data shape = " + str(round_scaled_fake.shape))
 
